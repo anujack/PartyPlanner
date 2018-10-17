@@ -13,16 +13,18 @@ $r = mysqli_query($conn,$query);
 
 if(mysqli_num_rows($r)<=0) {
     // echo "LOGIN FAILED!!";
-    header("Location: ../Login.html?login=error");
+    header("Location: ../Login.php?login=error");
+    exit();
 } else {
     $row = mysqli_fetch_assoc($r);
     if($row['pasword']===substr(hash("md5",$password),0,20)){
-        echo "Login Successful!!";
+        header("Location: ../index.php");
         $_SESSION['first_name']=$row['first_name'];
         $_SESSION['last_name']=$row['last_name'];
         $_SESSION['email']=$row['email'];
     } else {
         // echo "LOGIN FAILED!!";
-        header("Location: ../Login.html?login=error");
+        header("Location: ../Login.php?login=error");
+        exit();
     }    
 }
